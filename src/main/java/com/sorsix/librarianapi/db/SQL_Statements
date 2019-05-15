@@ -1,0 +1,67 @@
+insert into users (id, address, first_name, last_name, username)
+values (1, 'Winterfell BB', 'John', 'Snow', 'jsnow'),
+       (2, 'Winterfell BB', 'Arya', 'Stark', 'astark'),
+       (3, 'Casterly Rock', 'Tyrion', 'Lannister', 'tyrion'),
+       (4, 'Dragonstone', 'Daenerys', 'Targaryen', 'khaleesi'),
+       (5, 'Westerlands', 'Sandor', 'Clegane', 'thehound');
+
+insert into authors (id, biography, name)
+values (1, 'LT', 'Leo Tolstoy'),
+       (2, 'MDS', 'Miguel de Cervantes'),
+       (3, 'WS', 'William Shakespeare'),
+       (4, 'EH', 'Ernest Hemingway');
+
+insert into genres (id, name)
+values (1, 'Novel'),
+       (2, 'Drama'),
+       (3, 'Tragedy');
+
+insert into catalog_books (id, title, author_id, genre_id)
+values (1, 'For Whom The Bell Tolls', 4, 1),
+       (2, 'Hamlet', 3, 2),
+       (3, 'War and Peace', 1, 1),
+       (4, 'Don Quixote', 2, 1);
+
+insert into inventory_books (inventory_number, catalog_book_id)
+values (100, 1),
+       (101, 1),
+       (102, 2),
+       (200, 2),
+       (201, 2),
+       (202, 2),
+       (300, 3),
+       (301, 3),
+       (302, 3),
+       (400, 4),
+       (401, 4),
+       (402, 4);
+
+insert into leases (id, date_of_lease, date_to_return, inventory_book_number, user_id)
+values (1, '1994-10-06', '1994-11-06', 100, 1),
+       (2, '2019-05-13', null, 100, 2),
+       (3, '2019-05-12', null, 400, 1),
+       (4, '2019-04-10', '2019-04-25', 202, 2);
+
+-- FIND ALL AVAILABLE CATALOG BOOKS
+select distinct cb.id, cb.summary, cb.title, cb.author_id, cb.genre_id
+from catalog_books cb
+         left join inventory_books ib on cb.id = ib.catalog_book_id
+         left join leases l on ib.inventory_number = l.inventory_book_number
+where l.id is null;
+
+-- FIND ALL AVAILABLE INVENTORY BOOKS
+create view AVAILABLE_INV_BOOKS as
+select ib.inventory_number
+from inventory_books ib
+         left join leases l on ib.inventory_number = l.inventory_book_number
+where l.id is null;
+
+-- TEST VIEW
+select *
+from AVAILABLE_INV_BOOKS;
+
+-- TODO MAKE A LEASE
+select ib.inventory_number
+from inventory_books ib
+         join catalog_books cb on ib.catalog_book_id = cb.id
+where cb.id = :id;
