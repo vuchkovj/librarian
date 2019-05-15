@@ -28,9 +28,4 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Lease> leases = new ArrayList<>();
-
-    public void addLease(Lease l) {
-        leases.add(l);
-        l.setUser(this);
-    }
 }
