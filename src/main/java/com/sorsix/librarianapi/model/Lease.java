@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -13,13 +14,15 @@ public class Lease {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "date_of_lease")
-    private LocalDate dateOfLease;
+    @Column(name = "time_of_lease")
+    private LocalDateTime timeOfLease = LocalDateTime.now();
 
-    @Column(name = "date_to_return")
-    private LocalDate dateToReturn;
+    @Column(name = "due_time")
+    private LocalDateTime due_time = timeOfLease.plusWeeks(3L);
 
-    @OneToOne
+    private boolean returned;
+
+    @ManyToOne
     @JoinColumn(name = "inventory_book_number")
     private InventoryBook inventoryBook;
 

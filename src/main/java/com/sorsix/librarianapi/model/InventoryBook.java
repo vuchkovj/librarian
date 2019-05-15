@@ -15,6 +15,6 @@ public class InventoryBook {
     @JoinColumn(name = "catalog_book_id")
     private CatalogBook catalogBook;
 
-    @OneToOne(mappedBy = "inventoryBook")
+    @OneToMany(mappedBy = "inventoryBook")
     private Lease lease;
 }
