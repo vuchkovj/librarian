@@ -36,11 +36,11 @@ values (100, 1),
        (401, 4),
        (402, 4);
 
-insert into leases (id, date_of_lease, date_to_return, inventory_book_number, user_id)
-values (1, '1994-10-06', '1994-11-06', 100, 1),
-       (2, '2019-05-13', null, 100, 2),
-       (3, '2019-05-12', null, 400, 1),
-       (4, '2019-04-10', '2019-04-25', 202, 2);
+insert into leases (returned, inventory_book_number, user_id)
+values (false, 100, 1),
+       (false, 200, 1),
+       (false, 302, 2),
+       (true, 300, 1);
 
 -- FIND ALL AVAILABLE CATALOG BOOKS
 select distinct cb.id, cb.summary, cb.title, cb.author_id, cb.genre_id

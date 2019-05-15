@@ -5,6 +5,7 @@ import com.sorsix.librarianapi.model.Lease;
 import com.sorsix.librarianapi.repository.InventoryBookRepository;
 import com.sorsix.librarianapi.repository.LeaseRepository;
 import com.sorsix.librarianapi.repository.UserRepository;
+import com.sorsix.librarianapi.service.exceptions.BookNotAvailable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,10 +26,17 @@ public class LeaseService {
     }
 
     public void newLease(Long catalogBookId) {
-        InventoryBook ib = inventoryBookRepository.
-                getFirstAvailableByCatalogBookId(catalogBookId);
-        Lease l = new Lease();
-        l.addInventoryBook(ib);
-        leaseRepository.save(l);
+        inventoryBookRepository
+                .getFirstAvailableByCatalogBookId(catalogBookId)
+                .map(ib -> {
+                    Lease l = new Lease();
+                    l.addInventoryBook(ib);
+                    return leaseRepository.save(l);
+                }).orElseThrow(BookNotAvailable::new);
+//        InventoryBook ib = inventoryBookRepository.
+//                getFirstAvailableByCatalogBookId(catalogBookId);
+//        Lease l = new Lease();
+//        l.addInventoryBook(ib);
+//        leaseRepository.save(l);
     }
 }
