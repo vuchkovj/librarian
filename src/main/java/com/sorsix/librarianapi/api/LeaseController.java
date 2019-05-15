@@ -3,6 +3,8 @@ package com.sorsix.librarianapi.api;
 import com.sorsix.librarianapi.service.LeaseService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/lease")
 public class LeaseController {
@@ -12,8 +14,8 @@ public class LeaseController {
         this.service = service;
     }
 
-//    @PostMapping("/new}")
-//    public void newLease(@RequestBody Long catalogBookId) {
-//        service.newLease(catalogBookId);
-//    }
+    @PostMapping("/new")
+    public void newLease(@RequestBody Map<String, Long> req) {
+        service.newLease(req.get("id"));
+    }
 }

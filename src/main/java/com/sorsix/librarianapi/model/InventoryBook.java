@@ -2,6 +2,7 @@ package com.sorsix.librarianapi.model;
 
 import lombok.Data;
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -16,5 +17,5 @@ public class InventoryBook {
     private CatalogBook catalogBook;
 
     @OneToMany(mappedBy = "inventoryBook")
-    private Lease lease;
+    private List<Lease> leases;
 }

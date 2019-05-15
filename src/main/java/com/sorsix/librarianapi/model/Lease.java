@@ -29,4 +29,9 @@ public class Lease {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public void addInventoryBook(InventoryBook ib) {
+        setInventoryBook(ib);
+        ib.getLeases().add(this);
+    }
 }
