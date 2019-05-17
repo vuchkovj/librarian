@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+@CrossOrigin({"*"})
 @RestController
 @RequestMapping("/leases")
 public class LeaseController {
@@ -24,6 +25,7 @@ public class LeaseController {
 
     @PostMapping("/new")
     public Lease newLease(@RequestBody Map<String, Long> req) {
+        System.out.println("New Lease request");
         return service.newLease(req.get("id"));
     }
 
