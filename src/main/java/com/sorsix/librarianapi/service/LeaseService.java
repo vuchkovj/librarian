@@ -1,6 +1,5 @@
 package com.sorsix.librarianapi.service;
 
-import com.sorsix.librarianapi.model.InventoryBook;
 import com.sorsix.librarianapi.model.Lease;
 import com.sorsix.librarianapi.repository.InventoryBookRepository;
 import com.sorsix.librarianapi.repository.LeaseRepository;
@@ -27,7 +26,7 @@ public class LeaseService {
 
     public void newLease(Long catalogBookId) {
         inventoryBookRepository
-                .getFirstAvailableByCatalogBookId(catalogBookId)
+                .getFirstAvailable(catalogBookId)
                 .map(ib -> {
                     Lease l = new Lease();
                     l.addInventoryBook(ib);

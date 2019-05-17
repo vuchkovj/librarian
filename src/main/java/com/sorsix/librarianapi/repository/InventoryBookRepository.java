@@ -17,5 +17,5 @@ public interface InventoryBookRepository extends JpaRepository<InventoryBook, Lo
             "      (select l.inventory_book_number from leases l where l.returned = false)\n" +
             "  and ib.catalog_book_id = :id\n" +
             "limit 1;", nativeQuery = true)
-    Optional<InventoryBook> getFirstAvailableByCatalogBookId(@Param("id") Long id);
+    Optional<InventoryBook> getFirstAvailable(@Param("id") Long id);
 }
