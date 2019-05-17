@@ -30,9 +30,8 @@ public class LeaseController {
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.RESET_CONTENT)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public void onNewLeaseError(BookNotAvailable e) {
         logger.warn("onNewLeaseError [{}]", e.toString());
     }
-
 }

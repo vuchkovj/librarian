@@ -32,10 +32,10 @@ public class CatalogBookController {
         return service.getCatalogBookById(id);
     }
 
-    @GetMapping("/available")
-    public List<CatalogBook> getAllAvailable() {
-        return service.getAllAvailable();
-    }
+//    @GetMapping("/available")
+//    public List<CatalogBook> getAllAvailable() {
+//        return service.getAllAvailable();
+//    }
 
     @GetMapping("/author/{author}")
     public List<CatalogBook> getCatalogBooksByAuthor(@PathVariable String author) {

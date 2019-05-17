@@ -15,9 +15,9 @@ public interface CatalogBookRepository extends JpaRepository<CatalogBook, Long> 
 
     List<CatalogBook> findAllByTitle(String title);
 
-    @Query(value = "select distinct cb.id, cb.summary, cb.title, cb.author_id, cb.genre_id from\n" +
-            "catalog_books cb left join inventory_books ib on cb.id = ib.catalog_book_id\n" +
-            "left join leases l on ib.inventory_number = l.inventory_book_number\n" +
-            "where l.id is null", nativeQuery = true)
-    List<CatalogBook> findAllAvailable();
+//    @Query(value = "select distinct cb.id, cb.summary, cb.title, cb.author_id, cb.genre_id from\n" +
+//            "catalog_books cb left join inventory_books ib on cb.id = ib.catalog_book_id\n" +
+//            "left join leases l on ib.inventory_number = l.inventory_book_number\n" +
+//            "where l.id is null", nativeQuery = true)
+//    List<CatalogBook> findAllAvailable();
 }
