@@ -2,6 +2,7 @@ package com.sorsix.librarianapi.service;
 
 import com.sorsix.librarianapi.model.CatalogBook;
 import com.sorsix.librarianapi.repository.CatalogBookRepository;
+import com.sorsix.librarianapi.service.exceptions.BookNotFound;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,10 @@ public class CatalogBookService {
 
     public List<CatalogBook> getAllCatalogBooks() {
         return repository.findAll();
+    }
+
+    public CatalogBook getCatalogBookById(Long id) {
+        return repository.findById(id).orElseThrow(BookNotFound::new);
     }
 
     public List<CatalogBook> getCatalogBooksByAuthor(String author) {
