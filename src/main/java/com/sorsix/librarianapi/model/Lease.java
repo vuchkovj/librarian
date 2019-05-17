@@ -1,5 +1,6 @@
 package com.sorsix.librarianapi.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -24,10 +25,12 @@ public class Lease {
 
     @ManyToOne
     @JoinColumn(name = "inventory_book_number")
+    @JsonManagedReference
     private InventoryBook inventoryBook;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonManagedReference
     private User user;
 
     public void addInventoryBook(InventoryBook ib) {

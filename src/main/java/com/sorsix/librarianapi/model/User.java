@@ -1,5 +1,6 @@
 package com.sorsix.librarianapi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -27,5 +28,6 @@ public class User {
     private String address;
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     private List<Lease> leases = new ArrayList<>();
 }

@@ -1,5 +1,6 @@
 package com.sorsix.librarianapi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
@@ -17,5 +18,6 @@ public class InventoryBook {
     private CatalogBook catalogBook;
 
     @OneToMany(mappedBy = "inventoryBook")
+    @JsonBackReference
     private List<Lease> leases;
 }
