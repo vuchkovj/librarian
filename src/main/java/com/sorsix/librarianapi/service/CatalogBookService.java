@@ -32,8 +32,8 @@ public class CatalogBookService {
     }
 
     //TODO Use 'contains'
-    public List<CatalogBook> getCatalogBookByTitle(String title) {
-        return repository.findAllByTitle(title);
+    public List<CatalogBook> getCatalogBooksByTitle(String title) {
+        return repository.findAllByTitleContainingIgnoreCase(title);
     }
 
 //    public List<CatalogBook> getAllAvailable() {

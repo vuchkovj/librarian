@@ -13,7 +13,7 @@ public interface CatalogBookRepository extends JpaRepository<CatalogBook, Long> 
 
     List<CatalogBook> findAllByGenre_Name(String genre);
 
-    List<CatalogBook> findAllByTitle(String title);
+    List<CatalogBook> findAllByTitleContainingIgnoreCase(String title);
 
     @Query(value = "select * from v_catalog_books", nativeQuery = true)
     List<CatalogBook> findAll();

@@ -34,6 +34,5 @@ public class CatalogBook {
     @JsonManagedReference
     private Genre genre;
 
-    @Transient
     private boolean available;
 }

@@ -32,6 +32,11 @@ public class CatalogBookController {
         return service.getCatalogBookById(id);
     }
 
+    @GetMapping("/title/{title}")
+    public List<CatalogBook> getCatalogBookByTitle(@PathVariable String title) {
+        return service.getCatalogBooksByTitle(title);
+    }
+
 //    @GetMapping("/available")
 //    public List<CatalogBook> getAllAvailable() {
 //        return service.getAllAvailable();
