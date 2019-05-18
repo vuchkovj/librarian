@@ -42,26 +42,22 @@ values (false, 100, 1),
        (false, 302, 2),
        (true, 300, 1);
 
--- FIND ALL AVAILABLE CATALOG BOOKS
-select distinct cb.id, cb.summary, cb.title, cb.author_id, cb.genre_id
+-- Find all available books from inventory
+create view available_books_from_inventory as
+select ib.inventory_number, ib.catalog_book_id
+from inventory_books ib
+where ib.inventory_number not in (
+    select l.inventory_book_number
+    from leases l
+    where l.returned = false
+);
+
+create view v_catalog_books as
+select distinct cb.id,
+                cb.title,
+                cb.author_id,
+                cb.genre_id,
+                cb.summary,
+                case when ab.inventory_number is not null then true else false end as available
 from catalog_books cb
-         left join inventory_books ib on cb.id = ib.catalog_book_id
-         left join leases l on ib.inventory_number = l.inventory_book_number
-where l.id is null;
-
--- FIND ALL AVAILABLE INVENTORY BOOKS
-create view AVAILABLE_INV_BOOKS as
-select ib.inventory_number
-from inventory_books ib
-         left join leases l on ib.inventory_number = l.inventory_book_number
-where l.id is null;
-
--- TEST VIEW
-select *
-from AVAILABLE_INV_BOOKS;
-
--- TODO MAKE A LEASE
-select ib.inventory_number
-from inventory_books ib
-         join catalog_books cb on ib.catalog_book_id = cb.id
-where cb.id = :id;
+         left join available_books_from_inventory ab on cb.id = ab.catalog_book_id;
