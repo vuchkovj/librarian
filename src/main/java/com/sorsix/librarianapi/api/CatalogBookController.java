@@ -32,8 +32,8 @@ public class CatalogBookController {
         return service.getCatalogBookById(id);
     }
 
-    @GetMapping("/search/book?q={title}")
-    public List<CatalogBook> getCatalogBookByTitle(@PathVariable String title) {
+    @GetMapping("/search/book")
+    public List<CatalogBook> getCatalogBookByTitle(@RequestParam String title) {
         return service.getCatalogBooksByTitle(title);
     }
 
