@@ -32,7 +32,7 @@ public class CatalogBookController {
         return service.getCatalogBookById(id);
     }
 
-    @GetMapping("/title/{title}")
+    @GetMapping("/search/book?q={title}")
     public List<CatalogBook> getCatalogBookByTitle(@PathVariable String title) {
         return service.getCatalogBooksByTitle(title);
     }
