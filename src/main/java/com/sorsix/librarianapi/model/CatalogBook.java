@@ -34,5 +34,7 @@ public class CatalogBook {
     @JsonManagedReference
     private Genre genre;
 
+    private String cover;
+
     private boolean available;
 }
