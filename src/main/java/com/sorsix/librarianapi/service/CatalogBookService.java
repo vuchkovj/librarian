@@ -31,12 +31,11 @@ public class CatalogBookService {
         return repository.findAllByGenre_Name(genre);
     }
 
-    //TODO Use 'contains'
     public List<CatalogBook> getCatalogBooksByTitle(String title) {
         return repository.findAllByTitleContainingIgnoreCase(title);
     }
 
-//    public List<CatalogBook> getAllAvailable() {
-//        return repository.findAllAvailable();
-//    }
+    public List<CatalogBook> getMostPopularBooks() {
+        return repository.findMostPopular();
+    }
 }

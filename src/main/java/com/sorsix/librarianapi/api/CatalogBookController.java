@@ -32,25 +32,25 @@ public class CatalogBookController {
         return service.getCatalogBookById(id);
     }
 
-    @GetMapping("/search/book?q={title}")
-    public List<CatalogBook> getCatalogBookByTitle(@PathVariable String title) {
+    @GetMapping("/search/book")
+    public List<CatalogBook> getCatalogBookByTitle(@RequestParam String title) {
         return service.getCatalogBooksByTitle(title);
     }
 
-//    @GetMapping("/available")
-//    public List<CatalogBook> getAllAvailable() {
-//        return service.getAllAvailable();
+    @GetMapping("/popular")
+    List<CatalogBook> getMostPopular() {
+        return service.getMostPopularBooks();
+    }
+
+//    @GetMapping("/author/{author}")
+//    public List<CatalogBook> getCatalogBooksByAuthor(@PathVariable String author) {
+//        return service.getCatalogBooksByAuthor(author);
 //    }
-
-    @GetMapping("/author/{author}")
-    public List<CatalogBook> getCatalogBooksByAuthor(@PathVariable String author) {
-        return service.getCatalogBooksByAuthor(author);
-    }
-
-    @GetMapping("/genre/{genre}")
-    public List<CatalogBook> getCatalogBooksByGenre(@PathVariable String genre) {
-        return service.getCatalogBooksByGenre(genre);
-    }
+//
+//    @GetMapping("/genre/{genre}")
+//    public List<CatalogBook> getCatalogBooksByGenre(@PathVariable String genre) {
+//        return service.getCatalogBooksByGenre(genre);
+//    }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
