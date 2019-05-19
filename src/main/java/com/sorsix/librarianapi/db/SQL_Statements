@@ -16,11 +16,23 @@ values (1, 'Novel'),
        (2, 'Drama'),
        (3, 'Tragedy');
 
-insert into catalog_books (id, title, author_id, genre_id)
-values (1, 'For Whom The Bell Tolls', 4, 1),
-       (2, 'Hamlet', 3, 2),
-       (3, 'War and Peace', 1, 1),
-       (4, 'Don Quixote', 2, 1);
+insert into catalog_books (id, title, summary, cover, author_id, genre_id, available)
+values (1, 'For Whom The Bell Tolls',
+        'For Whom the Bell Tolls is a novel by Ernest Hemingway published in 1940. It tells the story of Robert Jordan, a young American in the International Brigades attached to a republican guerrilla unit during the Spanish Civil War. As a dynamiter, he is assigned to blow up a bridge during an attack on the city of Segovia.',
+        'https://images.bwbcovers.com/068/For-Whom-the-Bell-Tolls-Hemingway-Ernest-9780684803357.jpg',
+        4, 1, true),
+       (2, 'Hamlet',
+        'Hamlet, Prince of Denmark, is home from school to mourn the death of his father, King Hamlet, who has died two months earlier. Hamlet is disgusted by the marriage of his newly widowed mother, Queen Gertrude, to his Uncle, King Hamlet''s brother, Claudius, who now has the throne.',
+        'https://images.bwbcovers.com/074/Hamlet-Shakespeare-William-9780743477123.jpg',
+        3, 2, true),
+       (3, 'War and Peace',
+        'Don Quixote is a middle-aged gentleman from the region of La Mancha in central Spain. Obsessed with the chivalrous ideals touted in books he has read, he decides to take up his lance and sword to defend the helpless and destroy the wicked.',
+        'https://images.bwbcovers.com/014/War-and-Peace-9780140447934.jpg',
+        1, 1, true),
+       (4, 'Don Quixote',
+        'War and Peace broadly focuses on Napoleon’s invasion of Russia in 1812 and follows three of the most well-known characters in literature: Pierre Bezukhov, the illegitimate son of a count who is fighting for his inheritance and yearning for spiritual fulfillment; Prince Andrei Bolkonsky, who leaves his family behind to fight in the war against Napoleon; and Natasha Rostov, the beautiful young daughter of a nobleman who intrigues both men.',
+        'https://images.bwbcovers.com/048/9780486821955.jpg',
+        2, 1, true);
 
 insert into inventory_books (inventory_number, catalog_book_id)
 values (100, 1),
@@ -55,9 +67,24 @@ where ib.inventory_number not in (
 create view v_catalog_books as
 select distinct cb.id,
                 cb.title,
+                cb.cover,
                 cb.author_id,
                 cb.genre_id,
                 cb.summary,
                 case when ab.inventory_number is not null then true else false end as available
 from catalog_books cb
          left join available_books_from_inventory ab on cb.id = ab.catalog_book_id;
+
+create view v_number_of_leases_per_book as
+select v.id, count(*) as times_leased
+from leases l
+         join inventory_books ib on l.inventory_book_number = ib.inventory_number
+         join v_catalog_books v on v.id = ib.catalog_book_id
+group by v.id
+order by times_leased desc
+limit 4;
+
+create view v_most_popular as
+select cb.id, cb.title, cb.summary, cb.cover, cb.author_id, cb.genre_id, cb.available
+from v_catalog_books cb
+         join v_number_of_leases_per_book lb on cb.id = lb.id;
