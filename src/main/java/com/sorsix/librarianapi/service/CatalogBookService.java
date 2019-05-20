@@ -39,7 +39,7 @@ public class CatalogBookService {
         return repository.findMostPopular();
     }
 
-    public List<CatalogBook> getSimilar(Long genreId) {
-        return repository.findSimilar(genreId);
+    public List<CatalogBook> getSimilar(Long bookId) {
+        return repository.findSimilar(bookId);
     }
 }

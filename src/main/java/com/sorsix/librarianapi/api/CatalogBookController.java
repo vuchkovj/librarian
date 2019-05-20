@@ -42,10 +42,10 @@ public class CatalogBookController {
         return service.getMostPopularBooks();
     }
 
-    @GetMapping("/similar/{genreId}")
-    List<CatalogBook> getSimilar(@PathVariable Long genreId) {
-        System.out.println(genreId);
-        return service.getSimilar(genreId);
+    @GetMapping("/similar/{bookId}")
+    List<CatalogBook> getSimilar(@PathVariable Long bookId) {
+        System.out.println(bookId);
+        return service.getSimilar(bookId);
     }
 
 //    @GetMapping("/author/{author}")
