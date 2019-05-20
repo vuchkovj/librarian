@@ -13,6 +13,9 @@ public interface CatalogBookRepository extends JpaRepository<CatalogBook, Long> 
 
     List<CatalogBook> findAllByGenre_Name(String genre);
 
+    @Query(value = "select * from v_catalog_books cb where cb.genre_id = :id", nativeQuery = true)
+    List<CatalogBook> findSimilar(Long genreId);
+
     List<CatalogBook> findAllByTitleContainingIgnoreCase(String title);
 
     @Query(value = "select * from v_most_popular", nativeQuery = true)
