@@ -33,4 +33,7 @@ public class CatalogBook {
     @ManyToOne
     @JsonManagedReference
     private Genre genre;
+
+    @Transient
+    private boolean available;
 }

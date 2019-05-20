@@ -36,7 +36,7 @@ public class CatalogBookService {
         return repository.findAllByTitle(title);
     }
 
-    public List<CatalogBook> getAllAvailable() {
-        return repository.findAllAvailable();
-    }
+//    public List<CatalogBook> getAllAvailable() {
+//        return repository.findAllAvailable();
+//    }
 }
