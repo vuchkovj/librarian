@@ -42,9 +42,9 @@ public class CatalogBookController {
         return service.getMostPopularBooks();
     }
 
-    @GetMapping("/similar")
-    List<CatalogBook> getSimilar(@RequestParam Long genreId) {
-        return service.getSimilar(genreId);
+    @GetMapping("/similar/{bookId}")
+    List<CatalogBook> getSimilar(@PathVariable("bookId") Long bookId) {
+        return service.getSimilar(bookId);
     }
 
 //    @GetMapping("/author/{author}")
