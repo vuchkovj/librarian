@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin({"*"})
@@ -23,6 +24,10 @@ public class LeaseController {
         this.service = service;
     }
 
+    @GetMapping("/all")
+    public List<Lease> getAllLeases(){
+        return this.service.getAllLeases();
+    }
     @PostMapping("/new")
     public Lease newLease(@RequestBody Map<String, Long> req) {
         System.out.println("New Lease request");
@@ -34,4 +39,5 @@ public class LeaseController {
     public void onNewLeaseError(BookNotAvailable e) {
         logger.warn("onNewLeaseError [{}]", e.toString());
     }
+
 }

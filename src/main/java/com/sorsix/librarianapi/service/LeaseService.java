@@ -6,6 +6,8 @@ import com.sorsix.librarianapi.repository.LeaseRepository;
 import com.sorsix.librarianapi.service.exceptions.BookNotAvailable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LeaseService {
     private final LeaseRepository leaseRepository;
@@ -15,6 +17,9 @@ public class LeaseService {
                         InventoryBookRepository inventoryBookRepository) {
         this.leaseRepository = leaseRepository;
         this.inventoryBookRepository = inventoryBookRepository;
+    }
+    public List<Lease> getAllLeases(){
+        return leaseRepository.findAll();
     }
 
     public Lease newLease(Long catalogBookId) {
