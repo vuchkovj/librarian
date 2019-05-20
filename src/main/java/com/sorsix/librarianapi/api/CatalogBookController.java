@@ -43,8 +43,12 @@ public class CatalogBookController {
     }
 
     @GetMapping("/similar/{bookId}")
+<<<<<<< HEAD
     List<CatalogBook> getSimilar(@PathVariable Long bookId) {
         System.out.println(bookId);
+=======
+    List<CatalogBook> getSimilar(@PathVariable("bookId") Long bookId) {
+>>>>>>> f58d7c4ac7836542890bfd73265fb1cea20005de
         return service.getSimilar(bookId);
     }
 
