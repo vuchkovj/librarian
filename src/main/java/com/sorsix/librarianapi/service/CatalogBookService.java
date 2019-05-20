@@ -38,4 +38,8 @@ public class CatalogBookService {
     public List<CatalogBook> getMostPopularBooks() {
         return repository.findMostPopular();
     }
+
+    public List<CatalogBook> getSimilar(Long genreId) {
+        return repository.findSimilar(genreId);
+    }
 }
