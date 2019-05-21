@@ -31,7 +31,7 @@ public class LeaseService {
                 }).orElseThrow(BookNotAvailable::new);
     }
 
-    public List<Lease> getAllByUser(Long userId) {
-        return leaseRepository.getAllByUser_Id(userId);
+    public List<Lease> getAllByUser(String username) {
+        return leaseRepository.getAllByUser_Username(username);
     }
 }
