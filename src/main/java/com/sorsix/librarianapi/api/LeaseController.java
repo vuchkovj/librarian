@@ -30,8 +30,8 @@ public class LeaseController {
         return this.service.getAllLeases();
     }
 
-    @GetMapping("/user/{username}")
-    public List<Lease> getAllByUser(@PathVariable String username) {
+    @GetMapping("/user")
+    public List<Lease> getAllByUser(@RequestParam(name = "username") String username) {
         return service.getAllByUser(username);
     }
 
