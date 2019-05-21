@@ -20,7 +20,7 @@ public class CatalogBookService {
     }
 
     public CatalogBook getCatalogBookById(Long id) {
-        return repository.findById(id).orElseThrow(BookNotFound::new);
+        return repository.findByIdWithAvailable(id).orElseThrow(BookNotFound::new);
     }
 
     public List<CatalogBook> getCatalogBooksByAuthor(String author) {
