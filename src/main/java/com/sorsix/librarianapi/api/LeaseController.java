@@ -41,6 +41,12 @@ public class LeaseController {
         return service.newLease(req.get("id"));
     }
 
+    @PostMapping("/update")
+    public Lease updateLease(@RequestBody Map<String,Long> req){
+        System.out.println("UpdateLease!");
+        return service.updateLease(req.get("id"));
+    }
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public void onNewLeaseError(BookNotAvailable e) {

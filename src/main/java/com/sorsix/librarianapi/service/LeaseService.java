@@ -4,6 +4,7 @@ import com.sorsix.librarianapi.model.Lease;
 import com.sorsix.librarianapi.repository.InventoryBookRepository;
 import com.sorsix.librarianapi.repository.LeaseRepository;
 import com.sorsix.librarianapi.service.exceptions.BookNotAvailable;
+import com.sorsix.librarianapi.service.exceptions.FailedToUpdateLeaseException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,4 +35,16 @@ public class LeaseService {
     public List<Lease> getAllByUser(String username) {
         return leaseRepository.getAllByUser_Username(username);
     }
+
+    public Lease updateLease(Long id) {
+        return leaseRepository.findById(id)
+                .map(lease -> {
+                    lease.setReturned(true);
+                    return leaseRepository.save(lease);
+                })
+                .orElseThrow(FailedToUpdateLeaseException::new);
+
+
+    }
+
 }
