@@ -32,20 +32,31 @@ public class CatalogBookController {
         return service.getCatalogBookById(id);
     }
 
-//    @GetMapping("/available")
-//    public List<CatalogBook> getAllAvailable() {
-//        return service.getAllAvailable();
+    @GetMapping("/search/book")
+    public List<CatalogBook> getCatalogBookByTitle(@RequestParam String title) {
+        return service.getCatalogBooksByTitle(title);
+    }
+
+    @GetMapping("/popular")
+    List<CatalogBook> getMostPopular() {
+        return service.getMostPopularBooks();
+    }
+
+    @GetMapping("/similar/{bookId}")
+    List<CatalogBook> getSimilar(@PathVariable Long bookId) {
+//        System.out.println(bookId);
+        return service.getSimilar(bookId);
+    }
+
+//    @GetMapping("/author/{author}")
+//    public List<CatalogBook> getCatalogBooksByAuthor(@PathVariable String author) {
+//        return service.getCatalogBooksByAuthor(author);
 //    }
-
-    @GetMapping("/author/{author}")
-    public List<CatalogBook> getCatalogBooksByAuthor(@PathVariable String author) {
-        return service.getCatalogBooksByAuthor(author);
-    }
-
-    @GetMapping("/genre/{genre}")
-    public List<CatalogBook> getCatalogBooksByGenre(@PathVariable String genre) {
-        return service.getCatalogBooksByGenre(genre);
-    }
+//
+//    @GetMapping("/genre/{genre}")
+//    public List<CatalogBook> getCatalogBooksByGenre(@PathVariable String genre) {
+//        return service.getCatalogBooksByGenre(genre);
+//    }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)

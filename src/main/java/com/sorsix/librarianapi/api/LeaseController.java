@@ -9,12 +9,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin({"*"})
 @RestController
 @RequestMapping("/leases")
 public class LeaseController {
+
     private final Logger logger = LoggerFactory.getLogger(LeaseController.class);
 
     private final LeaseService service;
@@ -23,10 +25,26 @@ public class LeaseController {
         this.service = service;
     }
 
+    @GetMapping("/all")
+    public List<Lease> getAllLeases(){
+        return this.service.getAllLeases();
+    }
+
+    @GetMapping("/user")
+    public List<Lease> getAllByUser(@RequestParam(name = "username") String username) {
+        return service.getAllByUser(username);
+    }
+
     @PostMapping("/new")
     public Lease newLease(@RequestBody Map<String, Long> req) {
         System.out.println("New Lease request");
         return service.newLease(req.get("id"));
+    }
+
+    @PostMapping("/update")
+    public Lease updateLease(@RequestBody Map<String,Long> req){
+        System.out.println("UpdateLease!");
+        return service.updateLease(req.get("id"));
     }
 
     @ExceptionHandler
@@ -34,4 +52,5 @@ public class LeaseController {
     public void onNewLeaseError(BookNotAvailable e) {
         logger.warn("onNewLeaseError [{}]", e.toString());
     }
+
 }

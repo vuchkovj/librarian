@@ -2,6 +2,7 @@ package com.sorsix.librarianapi.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+//import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
