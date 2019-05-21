@@ -19,7 +19,7 @@ public class Lease {
     private LocalDateTime timeOfLease = LocalDateTime.now();
 
     @Column(name = "due_time")
-    private LocalDateTime due_time = timeOfLease.plusWeeks(3L);
+    private LocalDateTime dueTime = timeOfLease.plusWeeks(3L);
 
     private boolean returned;
 

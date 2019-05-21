@@ -30,4 +30,8 @@ public class LeaseService {
                     return leaseRepository.save(l);
                 }).orElseThrow(BookNotAvailable::new);
     }
+
+    public List<Lease> getAllByUser(Long userId) {
+        return leaseRepository.getAllByUser_Id(userId);
+    }
 }

@@ -10,4 +10,5 @@ public class UserService {
     public UserService(UserRepository repository) {
         this.repository = repository;
     }
+
 }

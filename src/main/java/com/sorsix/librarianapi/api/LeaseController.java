@@ -16,6 +16,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/leases")
 public class LeaseController {
+
     private final Logger logger = LoggerFactory.getLogger(LeaseController.class);
 
     private final LeaseService service;
@@ -28,6 +29,12 @@ public class LeaseController {
     public List<Lease> getAllLeases(){
         return this.service.getAllLeases();
     }
+
+    @GetMapping("/user/{userId}")
+    public List<Lease> getAllByUser(@PathVariable Long userId) {
+        return service.getAllByUser(userId);
+    }
+
     @PostMapping("/new")
     public Lease newLease(@RequestBody Map<String, Long> req) {
         System.out.println("New Lease request");
