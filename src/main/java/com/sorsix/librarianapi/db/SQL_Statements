@@ -1,9 +1,15 @@
-insert into users (id, address, first_name, last_name, username)
-values (1, 'Winterfell BB', 'John', 'Snow', 'jsnow'),
-       (2, 'Winterfell BB', 'Arya', 'Stark', 'astark'),
-       (3, 'Casterly Rock', 'Tyrion', 'Lannister', 'tyrion'),
-       (4, 'Dragonstone', 'Daenerys', 'Targaryen', 'khaleesi'),
-       (5, 'Westerlands', 'Sandor', 'Clegane', 'thehound');
+insert into users (id, address, email, first_name, last_name, password)
+values (1, 'Winterfell BB', 'jsnow@jsnow.com', 'John', 'Snow', 'password'),
+       (2, 'Winterfell BB', 'astark@astark.com', 'Arya', 'Stark', 'password'),
+       (3, 'Casterly Rock', 'tyrion@tyrion.com', 'Tyrion', 'Lannister', 'password'),
+       (4, 'Dragonstone', 'dany@dany.com', 'Daenerys', 'Targaryen', 'password'),
+       (5, 'Westerlands', 'sandor@sandor.com', 'Sandor', 'Clegane', 'password');
+
+update users
+set password = '$2a$10$FBAKClV1zBIOOC9XMXf3AO8RoGXYVYsfvUdoLxGkd/BnXEn4tqT3u';
+
+insert into authorities (id, authority, user_id)
+values (1, 'USER', 1);
 
 insert into authors (id, biography, name)
 values (1, 'LT', 'Leo Tolstoy'),
@@ -88,3 +94,28 @@ create view v_most_popular as
 select cb.id, cb.title, cb.summary, cb.cover, cb.author_id, cb.genre_id, cb.available
 from v_catalog_books cb
          join v_number_of_leases_per_book lb on cb.id = lb.id;
+
+
+select *
+from v_catalog_books;
+
+-- select cb.id,cb.title,
+--        CASE
+--            when cb.id in (subquery.catalog_book_id) THEN true
+--            else false
+--            END
+--            as available from
+--     (select ib.catalog_book_id, count(*) NumberOfAvailable
+--      from available_books_from_inventory ib
+--      group by ib.catalog_book_id) subquery
+--
+--         right join catalog_books cb on cb.id=subquery.catalog_book_id
+-- where cb.id=:bookId;
+select *
+from users;
+
+-- create view v_similar_catalog_books as
+-- select v.id, v.title, v.summary, v.cover, v.author_id, v.genre_id, v.available
+-- from (select cb.genre_id from v_catalog_books cb where cb.id = :bookId) gg
+--          join v_catalog_books v on gg.genre_id = v.genre_id
+-- where v.id != :bookId;
