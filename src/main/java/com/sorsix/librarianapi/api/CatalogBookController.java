@@ -6,8 +6,10 @@ import com.sorsix.librarianapi.repository.UserRepository;
 import com.sorsix.librarianapi.security.CustomUserDetails;
 import com.sorsix.librarianapi.service.CatalogBookService;
 import com.sorsix.librarianapi.service.exceptions.BookNotFound;
+import com.sorsix.librarianapi.service.exceptions.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,6 +17,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -30,6 +34,19 @@ public class CatalogBookController {
     public CatalogBookController(CatalogBookService service, UserRepository userRepository) {
         this.service = service;
         this.userRepository = userRepository;
+    }
+
+    @RequestMapping("/login")
+    public User login(HttpServletRequest request) throws UserNotFoundException {
+//        return userRepository.findByEmail(request.getUserPrincipal().toString());
+        return userRepository.findByEmail(request.getUserPrincipal().getName())
+                .orElseThrow(() -> new UserNotFoundException("User not found " + request.getUserPrincipal().getName()));
+//        System.out.println(request.getUserPrincipal());
+//        TODO check against db
+//        logger.info("user logged " + user.username);
+//        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        System.out.println(u);
+//        return user.username.equals("spase");
     }
 
 //    @RequestMapping(value = "/login")

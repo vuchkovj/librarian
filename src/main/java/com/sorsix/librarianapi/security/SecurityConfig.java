@@ -32,12 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/api/public/**")
-                    .permitAll()
+                    .antMatchers("/api/public/**").permitAll()
                     .anyRequest().fullyAuthenticated()
                     .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(authenticationEntryPoint());
+                .httpBasic();
+//                .exceptionHandling()
+//                .authenticationEntryPoint(authenticationEntryPoint());
     }
 
     @Override
