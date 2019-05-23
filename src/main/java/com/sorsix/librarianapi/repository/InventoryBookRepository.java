@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface InventoryBookRepository extends JpaRepository<InventoryBook, Long> {
+
     @Query(value = "select *\n" +
             "from inventory_books ib\n" +
             "where ib.inventory_number not in\n" +
@@ -18,4 +19,5 @@ public interface InventoryBookRepository extends JpaRepository<InventoryBook, Lo
             "  and ib.catalog_book_id = :id\n" +
             "limit 1;", nativeQuery = true)
     Optional<InventoryBook> getFirstAvailable(@Param("id") Long id);
+
 }

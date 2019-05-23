@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin({"*"})
 @RestController
-@RequestMapping("/leases")
+@RequestMapping("/api")
 public class LeaseController {
 
     private final Logger logger = LoggerFactory.getLogger(LeaseController.class);
@@ -25,32 +24,33 @@ public class LeaseController {
         this.service = service;
     }
 
-    @GetMapping("/all")
-    public List<Lease> getAllLeases(){
+    @GetMapping("/leases")
+    public List<Lease> getAllLeases() {
         return this.service.getAllLeases();
     }
 
-    @GetMapping("/user")
-    public List<Lease> getAllByUser(@RequestParam(name = "username") String username) {
-        return service.getAllByUser(username);
-    }
-
-    @PostMapping("/new")
+    //TODO(!!!): Look at this tomorrow
+    @PostMapping("/leases/new")
     public Lease newLease(@RequestBody Map<String, Long> req) {
-        System.out.println("New Lease request");
         return service.newLease(req.get("id"));
     }
 
+//    TODO(!!!): Should this method be moved into User Controller?
+//    @GetMapping("/leases")
+//    public List<Lease> getAllByUser(@RequestParam(name = "username") String username) {
+//        return service.getAllByUser(username);
+//    }
+
+    //TODO(!): Look at this tomorrow
     @PostMapping("/update")
-    public Lease updateLease(@RequestBody Map<String,Long> req){
-        System.out.println("UpdateLease!");
+    public Lease updateLease(@RequestBody Map<String, Long> req) {
         return service.updateLease(req.get("id"));
     }
 
+    //TODO(!!!): Add finely grained exception handlers
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public void onNewLeaseError(BookNotAvailable e) {
-        logger.warn("onNewLeaseError [{}]", e.toString());
+    public void newLeaseError(BookNotAvailable e) {
+        logger.warn("newLeaseError [{}]", e.toString());
     }
-
 }

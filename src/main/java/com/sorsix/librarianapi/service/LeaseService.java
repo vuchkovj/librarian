@@ -11,6 +11,7 @@ import java.util.List;
 
 @Service
 public class LeaseService {
+
     private final LeaseRepository leaseRepository;
     private final InventoryBookRepository inventoryBookRepository;
 
@@ -19,7 +20,8 @@ public class LeaseService {
         this.leaseRepository = leaseRepository;
         this.inventoryBookRepository = inventoryBookRepository;
     }
-    public List<Lease> getAllLeases(){
+
+    public List<Lease> getAllLeases() {
         return leaseRepository.findAll();
     }
 
@@ -29,11 +31,13 @@ public class LeaseService {
                     Lease l = new Lease();
                     l.addInventoryBook(inventoryBook);
                     return leaseRepository.save(l);
-                }).orElseThrow(BookNotAvailable::new);
+                })
+                .orElseThrow(BookNotAvailable::new);
     }
 
+    //TODO
     public List<Lease> getAllByUser(String username) {
-        return leaseRepository.getAllByUser_Username(username);
+        return leaseRepository.getAllByUser_Email(username);
     }
 
     public Lease updateLease(Long id) {
@@ -43,8 +47,5 @@ public class LeaseService {
                     return leaseRepository.save(lease);
                 })
                 .orElseThrow(FailedToUpdateLeaseException::new);
-
-
     }
-
 }

@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface LeaseRepository extends JpaRepository<Lease, Long> {
 
-    List<Lease> getAllByUser_Username(@Param("username") String username);
+    List<Lease> getAllByUser_Email(@Param("email") String email);
 
 }
