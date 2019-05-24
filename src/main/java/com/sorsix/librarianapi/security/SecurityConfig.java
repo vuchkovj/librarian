@@ -9,48 +9,43 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.AuthenticationEntryPoint;
+
+import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserRepository userRepository;
-    private final AuthSuccessHandler successHandler;
-    private final AuthFailureHandler failureHandler;
 
-    public SecurityConfig(UserRepository userRepository, AuthSuccessHandler successHandler, AuthFailureHandler failureHandler) {
+    public SecurityConfig(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.successHandler = successHandler;
-        this.failureHandler = failureHandler;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .httpBasic()
-                    .and()
-                .formLogin()
-                    .loginProcessingUrl("/api/public/login")
-                    .successHandler(successHandler)
-                    .failureHandler(failureHandler)
-                    .and()
-                .authorizeRequests()
-                    .antMatchers("/api/leases", "/api/leases/update", "/api/leases/user").hasRole("ADMIN")
-                    .antMatchers("/api/leases/new", "/api/leases/my").hasRole("USER")
-                    .antMatchers("/api/logout").hasAnyRole("ADMIN", "USER")
-                    .antMatchers("/api/public/**").permitAll()
-                    .anyRequest().fullyAuthenticated()
-                    .and()
-                .logout()
-                    .deleteCookies("JSESSIONID");
+            .httpBasic()
+                .and()
+            .exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPoint())
+                .and()
+            .authorizeRequests()
+                .antMatchers("/api/leases", "/api/leases/update", "/api/leases/user").hasRole("ADMIN")
+                .antMatchers("/api/leases/new", "/api/leases/my").hasRole("USER")
+                .antMatchers("/api/auth/logout").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/api/auth/login", "/api/public/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+            .logout()
+                .deleteCookies("JSESSIONID");
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userDetailsService())
-                    .passwordEncoder(passwordEncoder());
+            .userDetailsService(userDetailsService())
+                .passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -62,19 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-//
-//    @Bean
-//    public AuthenticationSuccessHandler successHandler() {
-//        return new AuthSuccessHandler();
-//    }
-//
-//    @Bean
-//    public AuthenticationFailureHandler failureHandler() {
-//        return new AuthFailureHandler();
-//    }
-//
-//    @Bean
-//    public LogoutSuccessHandler logoutSuccessHandler() {
-//        return new LogoutSuccessHandler();
-//    }
+
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access Denied");
+    }
 }

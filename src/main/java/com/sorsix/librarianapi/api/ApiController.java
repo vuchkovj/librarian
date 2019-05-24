@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +17,7 @@ import java.util.Map;
 /**
  * API Rest Controller
  *
- * Only users who have User || Admin roles can access these api endpoints
+ * Only users who are User || Admin roles can access these api endpoints
  */
 @RestController
 @RequestMapping("/api")
@@ -31,11 +30,6 @@ public class ApiController {
         this.userService = userService;
         this.leaseService = leaseService;
     }
-
-//    @RequestMapping("/logout")
-//    public void logout() {
-//        System.out.println("/logout");
-//    }
 
     //This method shall be used by ROLE_ADMIN to get all leases
     @GetMapping("/leases")
@@ -65,7 +59,6 @@ public class ApiController {
     }
 
     //This method shall be used by ROLE_USER to get their leases
-    //System.out.printf("%d %s", user.getId(), user.getEmail()); <-- Print currently logged user
     @GetMapping("/leases/my")
     public List<Lease> getLeases(Principal principal) {
         User user = userService.getUserForPrincipal(principal);

@@ -23,16 +23,9 @@ import java.util.List;
 public class ApiPublicController {
     private final Logger logger = LoggerFactory.getLogger(ApiPublicController.class);
     private final CatalogBookService service;
-    private final UserService userService;
 
-    public ApiPublicController(CatalogBookService service, UserService userService) {
+    public ApiPublicController(CatalogBookService service) {
         this.service = service;
-        this.userService = userService;
-    }
-
-    @RequestMapping("/login")
-    public User login(Principal principal) {
-        return userService.getUserForPrincipal(principal);
     }
 
     @GetMapping("/books")
