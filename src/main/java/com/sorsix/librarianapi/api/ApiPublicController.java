@@ -1,16 +1,13 @@
 package com.sorsix.librarianapi.api;
 
 import com.sorsix.librarianapi.domain.CatalogBook;
-import com.sorsix.librarianapi.domain.User;
 import com.sorsix.librarianapi.service.CatalogBookService;
 import com.sorsix.librarianapi.api.error.BookNotFound;
-import com.sorsix.librarianapi.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 /**

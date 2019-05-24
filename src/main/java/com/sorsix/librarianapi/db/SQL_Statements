@@ -99,6 +99,9 @@ from v_catalog_books cb
 select *
 from v_catalog_books;
 
+select *
+from users;
+
 -- select cb.id,cb.title,
 --        CASE
 --            when cb.id in (subquery.catalog_book_id) THEN true
@@ -111,8 +114,6 @@ from v_catalog_books;
 --
 --         right join catalog_books cb on cb.id=subquery.catalog_book_id
 -- where cb.id=:bookId;
-select *
-from users;
 
 -- create view v_similar_catalog_books as
 -- select v.id, v.title, v.summary, v.cover, v.author_id, v.genre_id, v.available

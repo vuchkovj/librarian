@@ -9,7 +9,6 @@ import com.sorsix.librarianapi.repository.LeaseRepository;
 import com.sorsix.librarianapi.api.error.BookNotAvailable;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
