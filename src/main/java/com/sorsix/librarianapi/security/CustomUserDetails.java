@@ -1,7 +1,7 @@
 package com.sorsix.librarianapi.security;
 
-import com.sorsix.librarianapi.model.User;
-import com.sorsix.librarianapi.model.UserAuthority;
+import com.sorsix.librarianapi.domain.User;
+import com.sorsix.librarianapi.domain.UserAuthority;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;

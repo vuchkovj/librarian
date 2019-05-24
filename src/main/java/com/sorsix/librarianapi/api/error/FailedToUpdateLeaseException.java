@@ -1,4 +1,4 @@
-package com.sorsix.librarianapi.service.exceptions;
+package com.sorsix.librarianapi.api.error;
 
 public class FailedToUpdateLeaseException extends RuntimeException {
 }

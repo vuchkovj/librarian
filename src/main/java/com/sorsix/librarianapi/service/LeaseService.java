@@ -1,12 +1,15 @@
 package com.sorsix.librarianapi.service;
 
-import com.sorsix.librarianapi.model.Lease;
+import com.sorsix.librarianapi.api.error.LeaseNotFound;
+import com.sorsix.librarianapi.domain.InventoryBook;
+import com.sorsix.librarianapi.domain.Lease;
+import com.sorsix.librarianapi.domain.User;
 import com.sorsix.librarianapi.repository.InventoryBookRepository;
 import com.sorsix.librarianapi.repository.LeaseRepository;
-import com.sorsix.librarianapi.service.exceptions.BookNotAvailable;
-import com.sorsix.librarianapi.service.exceptions.FailedToUpdateLeaseException;
+import com.sorsix.librarianapi.api.error.BookNotAvailable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -25,27 +28,29 @@ public class LeaseService {
         return leaseRepository.findAll();
     }
 
-    public Lease newLease(Long catalogBookId) {
-        return inventoryBookRepository.getFirstAvailable(catalogBookId)
-                .map(inventoryBook -> {
-                    Lease l = new Lease();
-                    l.addInventoryBook(inventoryBook);
-                    return leaseRepository.save(l);
-                })
-                .orElseThrow(BookNotAvailable::new);
-    }
-
-    //TODO
-    public List<Lease> getAllByUser(String username) {
+    public List<Lease> getAllByUserEmail(String username) {
         return leaseRepository.getAllByUser_Email(username);
     }
 
-    public Lease updateLease(Long id) {
-        return leaseRepository.findById(id)
-                .map(lease -> {
-                    lease.setReturned(true);
-                    return leaseRepository.save(lease);
-                })
-                .orElseThrow(FailedToUpdateLeaseException::new);
+    public List<Lease> getAllByUser(User user) {
+        return leaseRepository.findAllByUser(user);
+    }
+
+    //Should these two methods be @Transactional? I think not? Because there is only one modifying operation
+    //@Transactional
+    public Lease newLease(Long catalogBookId, User user) {
+        InventoryBook inventoryBook = inventoryBookRepository
+                .getFirstAvailable(catalogBookId)
+                .orElseThrow(() -> new BookNotAvailable("Book [" + catalogBookId + "] not available"));
+        Lease lease = new Lease(inventoryBook, user);
+        return leaseRepository.save(lease);
+    }
+
+    //@Transactional
+    public Lease updateLeaseReturned(Long id) {
+        Lease lease = leaseRepository.findById(id)
+                .orElseThrow(() -> new LeaseNotFound("Could not find lease [" + id + "]"));
+        lease.setReturned(true);
+        return lease;
     }
 }

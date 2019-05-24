@@ -1,4 +1,4 @@
-package com.sorsix.librarianapi.model;
+package com.sorsix.librarianapi.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

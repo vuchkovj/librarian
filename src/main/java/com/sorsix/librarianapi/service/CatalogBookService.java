@@ -1,8 +1,8 @@
 package com.sorsix.librarianapi.service;
 
-import com.sorsix.librarianapi.model.CatalogBook;
+import com.sorsix.librarianapi.domain.CatalogBook;
 import com.sorsix.librarianapi.repository.CatalogBookRepository;
-import com.sorsix.librarianapi.service.exceptions.BookNotFound;
+import com.sorsix.librarianapi.api.error.BookNotFound;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,15 +20,7 @@ public class CatalogBookService {
     }
 
     public CatalogBook getCatalogBookById(Long id) {
-        return repository.findById(id).orElseThrow(BookNotFound::new);
-    }
-
-    public List<CatalogBook> getCatalogBooksByAuthor(String author) {
-        return repository.findAllByAuthor_Name(author);
-    }
-
-    public List<CatalogBook> getCatalogBooksByGenre(String genre) {
-        return repository.findAllByGenre_Name(genre);
+        return repository.findById(id).orElseThrow(() -> new BookNotFound("Could not find book with id " + id));
     }
 
     public List<CatalogBook> getCatalogBooksByTitle(String title) {
