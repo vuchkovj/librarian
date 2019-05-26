@@ -40,8 +40,4 @@ public class Lease {
         this.inventoryBook = ib;
         this.user = user;
     }
-//    public void addInventoryBook(InventoryBook ib) {
-//        setInventoryBook(ib);
-//        ib.getLeases().add(this);
-//    }
 }
