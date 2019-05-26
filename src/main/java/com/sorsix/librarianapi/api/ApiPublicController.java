@@ -10,11 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Public API Rest Controller
- *
- * Anonymous, User and Admin roles can access these api endpoints
- */
 @RestController
 @RequestMapping("/api/public")
 public class ApiPublicController {

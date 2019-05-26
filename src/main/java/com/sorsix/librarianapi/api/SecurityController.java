@@ -25,4 +25,9 @@ public class SecurityController {
     public boolean logout() {
         return true;
     }
+
+    @RequestMapping("/user")
+    public User user(Principal principal) {
+        return service.getUserForPrincipal(principal);
+    }
 }

@@ -13,6 +13,7 @@ import java.util.Set;
 
 @Component
 public class AuthSuccessHandlerImpl implements AuthenticationSuccessHandler {
+
     private Logger logger = LoggerFactory.getLogger(AuthSuccessHandlerImpl.class);
 
     @Override

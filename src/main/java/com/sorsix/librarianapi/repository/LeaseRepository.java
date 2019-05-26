@@ -15,6 +15,4 @@ public interface LeaseRepository extends JpaRepository<Lease, Long> {
 
     List<Lease> findAllByUser(User user);
 
-    //List<Lease> getAllByUser_Id(@Param("id") Long id);
-
 }

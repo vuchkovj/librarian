@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     private final UserRepository userRepository;
 
     public SecurityConfig(UserRepository userRepository) {
@@ -31,8 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(authenticationEntryPoint())
                 .and()
             .authorizeRequests()
-                .antMatchers("/api/leases", "/api/leases/update", "/api/leases/user").hasRole("ADMIN")
                 .antMatchers("/api/leases/new", "/api/leases/my").hasRole("USER")
+                .antMatchers("/api/leases/*").hasRole("ADMIN")
                 .antMatchers("/api/auth/logout").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/api/auth/login", "/api/public/**").permitAll()
                 .anyRequest().authenticated()

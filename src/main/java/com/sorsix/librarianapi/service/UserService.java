@@ -20,5 +20,4 @@ public class UserService {
         return repository.findByEmail(principal.getName())
                 .orElseThrow(() -> new UserNotFoundException("User with id " + principal.getName() + " not found"));
     }
-
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class CatalogBookService {
+
     private final CatalogBookRepository repository;
 
     public CatalogBookService(CatalogBookRepository repository) {

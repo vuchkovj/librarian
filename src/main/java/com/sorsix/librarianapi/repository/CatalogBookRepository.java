@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface CatalogBookRepository extends JpaRepository<CatalogBook, Long> {
+
     @Query(value = "select * from v_catalog_books", nativeQuery = true)
     List<CatalogBook> findAll();
 

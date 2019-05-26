@@ -13,6 +13,7 @@ import java.util.Set;
 
 @Component
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
+
     private Logger logger = LoggerFactory.getLogger(LogoutSuccessHandlerImpl.class);
 
     @Override

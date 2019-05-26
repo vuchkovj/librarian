@@ -14,14 +14,10 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
-/**
- * API Rest Controller
- *
- * Only users who are User || Admin roles can access these api endpoints
- */
 @RestController
 @RequestMapping("/api")
 public class ApiController {
+
     private final Logger logger = LoggerFactory.getLogger(ApiController.class);
     private final UserService userService;
     private final LeaseService leaseService;
@@ -31,34 +27,33 @@ public class ApiController {
         this.leaseService = leaseService;
     }
 
-    //This method shall be used by ROLE_ADMIN to get all leases
+    //Used by admin to get all leases
     @GetMapping("/leases")
     public List<Lease> getAllLeases() {
         return leaseService.getAllLeases();
     }
 
-    //This method shall be used by ROLE_ADMIN to update lease's returned status
+    //Used by admin to update lease's returned status
     @PostMapping("/leases/update")
     public Lease updateLeaseReturned(@RequestBody Map<String, Long> leaseId) {
         return leaseService.updateLeaseReturned(leaseId.get("id"));
     }
 
-    //This method shall be used by ROLE_ADMIN to get single user's leases
+    //Used by admin to get single user's leases
     @GetMapping("/leases/user")
     public List<Lease> getLeasesByUser(@RequestParam("email") String email) {
         return leaseService.getAllByUserEmail(email);
     }
 
-    //This method shall be used by ROLE_USER to make new lease
-    //User will send catalog_book_id
+    //Used by user to make new lease
+    //User will send catalog_book id
     @PostMapping("/leases/new")
     public Lease newLease(@RequestBody Map<String, Long> bookId, Principal principal) {
-        //TODO Set lease_user_id to be currently logged in user's id -> DONE
         User user = userService.getUserForPrincipal(principal);
         return leaseService.newLease(bookId.get("id"), user);
     }
 
-    //This method shall be used by ROLE_USER to get their leases
+    //Used by user to get their leases
     @GetMapping("/leases/my")
     public List<Lease> getLeases(Principal principal) {
         User user = userService.getUserForPrincipal(principal);

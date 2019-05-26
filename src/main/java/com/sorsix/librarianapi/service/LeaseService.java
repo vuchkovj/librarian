@@ -35,7 +35,6 @@ public class LeaseService {
         return leaseRepository.findAllByUser(user);
     }
 
-    //Should these two methods be @Transactional? I think not? Because there is only one modifying operation
     //@Transactional
     public Lease newLease(Long catalogBookId, User user) {
         InventoryBook inventoryBook = inventoryBookRepository

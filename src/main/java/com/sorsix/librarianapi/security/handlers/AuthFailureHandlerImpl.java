@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class AuthFailureHandlerImpl implements AuthenticationFailureHandler {
+
     private Logger logger = LoggerFactory.getLogger(AuthSuccessHandlerImpl.class);
 
     @Override

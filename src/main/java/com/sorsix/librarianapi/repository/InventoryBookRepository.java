@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface InventoryBookRepository extends JpaRepository<InventoryBook, Long> {
+
     @Query(value = "select *\n" +
             "from inventory_books ib\n" +
             "where ib.inventory_number not in\n" +

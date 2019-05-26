@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CustomUserDetails implements UserDetails {
+
     private final User user;
     private final List<GrantedAuthority> authorities;
 
