@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CatalogBookRepository extends JpaRepository<CatalogBook, Long> {
@@ -21,4 +22,7 @@ public interface CatalogBookRepository extends JpaRepository<CatalogBook, Long> 
     List<CatalogBook> findSimilar(@Param("bookId") Long bookId);
 
     List<CatalogBook> findAllByTitleContainingIgnoreCase(String title);
+
+    @Query(value = "select * from v_catalog_books v where v.id = :id", nativeQuery = true)
+    Optional<CatalogBook> findById(@Param("id") Long id);
 }
