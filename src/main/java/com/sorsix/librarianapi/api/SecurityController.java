@@ -10,6 +10,7 @@ import java.security.Principal;
 @RestController
 @RequestMapping("/api/auth")
 public class SecurityController {
+
     private final UserService service;
 
     public SecurityController(UserService service) {

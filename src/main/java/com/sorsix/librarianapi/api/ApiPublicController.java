@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/public")
 public class ApiPublicController {
+
     private final Logger logger = LoggerFactory.getLogger(ApiPublicController.class);
     private final CatalogBookService service;
 
