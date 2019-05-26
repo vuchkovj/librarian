@@ -18,9 +18,14 @@ public class SecurityController {
     }
 
     @RequestMapping("/login")
-    public User login(Principal principal) {
-        return service.getUserForPrincipal(principal);
+    public boolean login() {
+        return true;
     }
+
+//    @RequestMapping("/login")
+//    public User login(Principal principal) {
+//        return service.getUserForPrincipal(principal);
+//    }
 
     @RequestMapping("/logout")
     public boolean logout() {
