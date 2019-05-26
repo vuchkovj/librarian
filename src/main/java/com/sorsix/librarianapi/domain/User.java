@@ -42,10 +42,5 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    @JsonIgnore
     private List<UserAuthority> authorities;
-
-//    @NotEmpty(message = "Username is required.")
-//    @Column(unique = true)
-//    private String username;
 }

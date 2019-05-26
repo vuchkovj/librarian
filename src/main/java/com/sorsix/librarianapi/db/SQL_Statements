@@ -61,7 +61,7 @@ values (false, 100, 1),
        (true, 300, 1);
 
 -- Find all available books from inventory
-create view available_books_from_inventory as
+create view v_available_books_from_inventory as
 select ib.inventory_number, ib.catalog_book_id
 from inventory_books ib
 where ib.inventory_number not in (
@@ -94,29 +94,3 @@ create view v_most_popular as
 select cb.id, cb.title, cb.summary, cb.cover, cb.author_id, cb.genre_id, cb.available
 from v_catalog_books cb
          join v_number_of_leases_per_book lb on cb.id = lb.id;
-
-
-select *
-from v_catalog_books;
-
-select *
-from users;
-
--- select cb.id,cb.title,
---        CASE
---            when cb.id in (subquery.catalog_book_id) THEN true
---            else false
---            END
---            as available from
---     (select ib.catalog_book_id, count(*) NumberOfAvailable
---      from available_books_from_inventory ib
---      group by ib.catalog_book_id) subquery
---
---         right join catalog_books cb on cb.id=subquery.catalog_book_id
--- where cb.id=:bookId;
-
--- create view v_similar_catalog_books as
--- select v.id, v.title, v.summary, v.cover, v.author_id, v.genre_id, v.available
--- from (select cb.genre_id from v_catalog_books cb where cb.id = :bookId) gg
---          join v_catalog_books v on gg.genre_id = v.genre_id
--- where v.id != :bookId;

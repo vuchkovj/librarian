@@ -16,6 +16,6 @@ public class AuthFailureHandlerImpl implements AuthenticationFailureHandler {
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) {
-        logger.warn("Remote user tried to authenticate but failed. Reason: [{}]", exception.getMessage());
+        logger.warn("Remote user tried to authenticate but failed [{}]", exception.getMessage());
     }
 }
